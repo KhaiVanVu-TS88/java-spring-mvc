@@ -1,18 +1,14 @@
 package com.example.demo.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model; // Đúng
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.service.UserService;
-
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UserController {
 
-    // DI : dependency injection
     private UserService userService;
 
     public UserController(UserService userService) {
@@ -20,11 +16,14 @@ public class UserController {
     }
 
     @RequestMapping("/")
-    public String getHomePage() {
+    public String getHomePage(Model model) {
         String test = this.userService.handleHello();
+        model.addAttribute("khai", test);
+        model.addAttribute("khai1", "Ngu vl");
         return "hello";
     }
 }
+
 // @RestController
 // public class UserController {
 
