@@ -1,10 +1,14 @@
 package com.example.demo.controller;
 
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model; // Đúng
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.demo.service.UserService;
+import com.example.demo.domain.User;
 
 @Controller
 public class UserController {
@@ -22,20 +26,16 @@ public class UserController {
         model.addAttribute("khai1", "Ngu vl");
         return "hello";
     }
+
+    @RequestMapping("/admin/user")
+    public String getUserPage(Model model) {
+        model.addAttribute("newUser", new User());
+        return "/admin/user/create";
+    }
+
+    @RequestMapping(value = "/admin/user/create1", method = RequestMethod.POST)
+    public String createUserPage(Model model, @ModelAttribute("newUser") User khaiVan) {
+        System.out.println("run here" + khaiVan);
+        return "hello";
+    }
 }
-
-// @RestController
-// public class UserController {
-
-// //DI : dependency injection
-// private UserService userService;
-
-// public UserController(UserService userService) {
-// this.userService = userService;
-// }
-
-// @GetMapping("/")
-// public String getHomePage() {
-// return "Hello from controller";
-// }
-// }
